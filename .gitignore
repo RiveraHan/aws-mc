@@ -3,3 +3,6 @@ node_modules/
 
 # Documentación
 out/
+
+# Variables de entorno local
+.env

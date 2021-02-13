@@ -4,27 +4,20 @@
  * @author Hanzell Rivera<hanzellrivera95@gmail.com>
  * 
  * Establecemos la conexion con la base de datos y configuramos.
- * Pasamos @param URL_DB a la conexion.
+ * Pasamos @param MONGODB_URI a la conexion.
  */
 
-require('../config/config');
 const mongoose = require('mongoose');
+const { MONGODB_HOST, MONGODB_DATBASE } = process.env;
 
-/**
- * @function connect realiza la conección con la base de datos
- */
-mongoose.connect(process.env.URL_DB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true
-}, (err, res) => {
-    if (err) throw err;
-    console.log('mongo connection created');
 
-});
+process.env.MONGODB_URI = process.env.MONGODB_URI || `mongodb://${MONGODB_HOST}/${MONGODB_DATBASE}`;
 
-/**
- * @module mongoose exportamos para utilizarlo en el main.
- */
-module.exports = mongoose;
+mongoose.connect(process.env.MONGODB_URI, {
+        useCreateIndex: true,
+        useNewUrlParser: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true
+    })
+    .then(db => console.info('DB está conectada'))
+    .catch(err => console.error(err));

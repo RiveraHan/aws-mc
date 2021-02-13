@@ -5,8 +5,9 @@
  * 
  */
 
-require('../config/config');
-const cliente = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+require('dotenv').config();
+const { TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN} = process.env;
+const cliente = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
 /**
  * Esta funcion recibe dos parámetros para poder enviar un SMS
@@ -31,7 +32,4 @@ async function enviarMensaje(to, body) {
     }
 }
 
-/**
- * @exports enviarMensaje exportamos la funcion para ser utilizada en la app
- */
 module.exports = enviarMensaje;
