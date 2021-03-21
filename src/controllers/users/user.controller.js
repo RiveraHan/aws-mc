@@ -5,21 +5,21 @@
  * 
  */
 
-const Usuario = require('../db/models/Usuario');
-const Credenciales = require('../db/models/Credenciales');
-const Persona = require('../db/models/Persona');
-const Contacto = require('../db/models/Contacto');
-const Municipios = require('../db/models/Municipios');
+const Usuario = require('../../db/models/Usuarios/Usuario');
+const Credenciales = require('../../db/models/Usuarios/Credenciales');
+const Persona = require('../../db/models/Persona');
+const Contacto = require('../../db/models/Usuarios/Contacto');
+const Municipios = require('../../db/models/Municipios');
 const bcrypt = require('bcrypt');
 
 const controller = {
 
-    /**
-     * Crea un nuevo usuario
-     * @function guardarUsuario registra un usuario
-     *
-     */
-    guardarUsuario: async(req, res) => {
+    crearUsuario: async(req, res) => {
+
+        return res.send({
+            ok: true,
+
+        });
         try {
 
             const body = req.body;
@@ -37,7 +37,6 @@ const controller = {
                 apellidos: body.apellidos,
                 dni: body.dni
             });
-            // FIXME: Areglar lo del idpersona
             const nuevoUsuario = await Usuario.create({
                 tipo: body.tipo,
                 foto: body.foto,
@@ -84,8 +83,4 @@ const controller = {
     }
 }
 
-/**
- * Exportamos el objeto para ser servido en las rutas
- * @exports controller Enviamos el objeto
- */
 module.exports = controller;

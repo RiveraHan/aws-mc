@@ -19,5 +19,5 @@ mongoose.connect(process.env.MONGODB_URI, {
         useFindAndModify: false,
         useUnifiedTopology: true
     })
-    .then(db => console.info('DB está conectada'))
+    .then(db => console.info('**********************************\n\tOk, DB on connect\n**********************************'))
     .catch(err => console.error(err));

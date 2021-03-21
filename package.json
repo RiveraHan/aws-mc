@@ -1,5 +1,5 @@
 {
-    "name": "backend-CM",
+    "name": "backend-MC",
     "version": "1.0.0",
     "description": "Backend del proyecto Medical Control en Hackathon",
     "main": "index.js",

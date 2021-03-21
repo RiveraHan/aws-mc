@@ -1,19 +1,19 @@
-const Persona = require('../db/models/Persona');
-const Contacto = require('../db/models/Contacto');
-const Municipios = require('../db/models/Municipios');
-const Datos_Materno = require('../db/models/Datos_Maternos');
-const Datos_bebe = require('../db/models/Datos_bebe');
-const Tipo_Paciente = require('../db/models/Tipo_Paciente');
-const Comorbilidades_Rop = require('../db/models/Comorbilidades_Rop');
-const Tratamientos_Recibidos = require('../db/models/Tratamientos_Recibidos');
-const Otros_Factores = require('../db/models/Otros_Factores');
-const Oxigenoterapia = require('../db/models/Oxigenoterapia');
+const Persona = require('../../db/models/Persona');
+const Contacto = require('../../db/models/Usuarios/Contacto');
+const Municipios = require('../../db/models/Municipios');
+const Datos_Materno = require('../../db/models/Usuarios/ROP/Datos_Maternos');
+const Datos_bebe = require('../../db/models/Usuarios/ROP/Datos_bebe');
+const Tipo_Paciente = require('../../db/models/Usuarios/Tipo_Paciente');
+const Comorbilidades_Rop = require('../../db/models/Fichas/Ficha-Rop/Comorbilidades_Rop');
+const Tratamientos_Recibidos = require('../../db/models/Fichas/Ficha-Rop/Tratamientos_Recibidos');
+const Otros_Factores = require('../../db/models/Fichas/Ficha-Rop/Otros_Factores');
+const Oxigenoterapia = require('../../db/models/Fichas/Ficha-Rop/Oxigenoterapia');
 
-const enviarMensaje = require('../twilio/enviar-mensaje');
+const enviarMensaje = require('../../twilio/enviar-mensaje');
 
 const controlador = {
 
-    guadarPaciente: async(req, res) => {
+    crearFicha: async(req, res) => {
         const body = req.body;
 
         if (!body.nombre || !body.telefono) {

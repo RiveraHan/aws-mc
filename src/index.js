@@ -8,6 +8,6 @@ require('../src/db/database');
 
 // Server is listenning
 app.listen(app.get('port'), () => {
-    console.info('Server on port', app.get('port'));
+    console.info('##############################\n\tOk, Server on port', app.get('port'), ':)\n##############################\n');
 
 });

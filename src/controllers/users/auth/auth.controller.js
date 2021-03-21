@@ -1,4 +1,4 @@
-const Credenciales = require('../db/models/Credenciales');
+const Credenciales = require('../../db/models/Usuarios/Credenciales');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
