@@ -5,27 +5,28 @@
  * 
  */
 
- const { Schema, model } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const MedicalSchema = Schema({
 
-    speciality: {
-        type: String,
-        required: false
-    },
+    speciality: [String],
     timetable: {
-        type: Array,
-        required: false
+        name: String,
+        firtsDW: Date,
+        lastDW: Date,
+        startingH: Date,
+        finishH: Date,
+        break: Date 
     },
-    credentials: {
-        type: Schema.Types.ObjectId,
-        ref: 'Credentials',
-        required: true
-    },
-    person: {
+    personId: {
         type: Schema.Types.ObjectId,
         ref: 'Person',
         required: true
+    },
+    minsaSupport: {
+        type: Schema.Types.ObjectId,
+        ref: 'MinsaCodes',
+        required: false
     }
 },
 {

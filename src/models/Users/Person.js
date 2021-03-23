@@ -6,6 +6,7 @@
  */
 
  const { Schema, model } = require('mongoose');
+ const uniqueValidator = require('mongoose-unique-validator');
 
 const PersonSchema = Schema({
 
@@ -18,6 +19,13 @@ const PersonSchema = Schema({
         type: String,
         required: [true, 'El apellido es necesario'],
         trim: true
+    },
+    email: {
+        type: String,
+        unique: true,
+        lowercase: true,
+        trim: true,
+        required: false
     },
     dni: {
         type: String,
@@ -48,15 +56,22 @@ const PersonSchema = Schema({
     },
     address: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     gender: {
         type: String,
         required: false
+    },
+    credencialsId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Credentials',
+        required: true
     }
 },
 {
     timestamps: true
 });
 
+PersonSchema.plugin(uniqueValidator, {message: '{PATH} dede ser único'});
 module.exports = model('Person', PersonSchema);

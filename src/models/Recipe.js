@@ -8,10 +8,10 @@
  const { Schema, model } = require('mongoose');
 
  const RecipeSchema = Schema({
-     treatment: {
-         type: Array
-    },
-    medical: {
+     treatment: [{ type: Schema.Types.ObjectId, ref: 'Medicine'}]
+         
+    ,
+    medicalId: {
         type: Schema.Types.ObjectId,
         ref: 'Medical',
         required: true

@@ -12,11 +12,13 @@ const PatientSchema = Schema({
     date: {
         type: Date
     },
-    prediagnosis: {
-        chatbotrts: {} 
+    prediagnosisCHB: {
+        type: Schema.Types.ObjectId,
+        ref: 'ChatBotResults'
     },
     recipe: {
-        
+        type: Schema.Types.ObjectId,
+        ref: 'Recipe'
     }
 },
 {

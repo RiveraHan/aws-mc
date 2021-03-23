@@ -24,11 +24,11 @@
     quantity: {
         type: Number
     },
-    requiresrecipe: {
+    isPrescribed: {
         type: Boolean,
         default: false
     },
-    timetable: {} 
+    hours: [Date]
  },
  {
     timestamps: true

@@ -8,11 +8,12 @@
  const { Schema, model } = require('mongoose');
 
 const ChatBotResultSchema = Schema({
-    percents: {
+    percent: {
         type: Number
     },
     disease: {
-
+        type: Schema.Types.ObjectId,
+        ref: 'Disease'
     }
 }, 
 {
