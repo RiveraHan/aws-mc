@@ -7,14 +7,21 @@
 
 import { Schema, model } from 'mongoose';
 
-const RecipeSchema = new Schema(
+const DiagnosticSchema = new Schema(
   {
-    treatment: [{ type: Schema.Types.ObjectId, ref: 'Medicine' }],
-
+    date: Date,
+    obs: String,
+    recipeId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Recipe',
+    },
+    diseaseId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Disease',
+    },
     medicalId: {
       type: Schema.Types.ObjectId,
       ref: 'Medical',
-      required: true,
     },
   },
   {
@@ -22,4 +29,4 @@ const RecipeSchema = new Schema(
   }
 );
 
-export default model('Recipe', RecipeSchema);
+export default model('Diagnostic', DiagnosticSchema);

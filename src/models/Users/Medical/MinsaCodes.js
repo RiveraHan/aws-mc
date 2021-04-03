@@ -1,20 +1,21 @@
 /**
- * 
+ *
  * @fileoverview Data Model.
  * @author Hanzell Rivera, Brandon Fonseca<hanzellrivera95@gmail.com,isaac99.bf@gmail.com>
- * 
+ *
  */
 
-const { Schema, model } = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const MinsaCodes = Schema({
+const MinsaCodes = new Schema(
+  {
     code: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true,
     },
-    silais: {
-        
-    }
-});
+    silais: {},
+  },
+  { timestamps: true }
+);
 
-module.exports = model('MinsaCodes', MinsaCodes);
+export default model('MinsaCodes', MinsaCodes);

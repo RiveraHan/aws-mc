@@ -1,37 +1,37 @@
 /**
- * 
+ *
  * @fileoverview Data Model.
  * @author Hanzell Rivera, Brandon Fonseca<hanzellrivera95@gmail.com,isaac99.bf@gmail.com>
- * 
+ *
  */
 
- const { Schema, model } = require('mongoose');
+import { Schema, model } from 'mongoose';
 
- const MedicineSchema = Schema({
-
+const MedicineSchema = new Schema(
+  {
     name: {
-        type: String,
-        required: [true, 'El nombre es necesario']
-    }, 
+      type: String,
+      required: [true, 'El nombre de la medicina es necesario'],
+    },
     mg: {
-        type: Number,
-        required: [true, 'La cantidad es necesaria']
+      type: Number,
+      required: [true, 'La cantidad en miligramo es necesaria'],
     },
     times: {
-        type: Number,
-        required: false
+      type: Number,
+      required: false,
     },
-    quantity: {
-        type: Number
-    },
-    isPrescribed: {
-        type: Boolean,
-        default: false
-    },
-    hours: [Date]
- },
- {
-    timestamps: true
- });
+    quantity: Number,
 
- module.exports = model('Medicine', MedicineSchema);
+    isPrescribed: {
+      type: Boolean,
+      default: false,
+    },
+    hours: [Date],
+  },
+  {
+    timestamps: true,
+  }
+);
+
+export default model('Medicine', MedicineSchema);

@@ -1,25 +1,31 @@
 /**
- * 
+ *
  * @fileoverview Data Model.
  * @author Hanzell Rivera, Brandon Fonseca<hanzellrivera95@gmail.com,isaac99.bf@gmail.com>
- * 
+ *
  */
 
-const { Schema, model } = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const MedicalDateSchema = Schema({
-    
+const MedicalDateSchema = new Schema(
+  {
     datetime: Date,
     cost: Number,
     commission: Number,
     medicalId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Medical'
+      type: Schema.Types.ObjectId,
+      ref: 'Medical',
     },
     patientId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Patient'
-    }
-});
+      type: Schema.Types.ObjectId,
+      ref: 'Patient',
+    },
+    prediagnosis: {
+      type: Schema.Types.ObjectId,
+      ref: 'ChatBotResults',
+    },
+  },
+  { timestamps: true }
+);
 
-module.exports = model('MedicalDate', MedicalDateSchema);
+export default model('MedicalDate', MedicalDateSchema);

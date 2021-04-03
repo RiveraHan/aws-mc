@@ -1,20 +1,27 @@
 /**
- * 
+ *
  * @fileoverview Data Model.
  * @author Hanzell Rivera, Brandon Fonseca<hanzellrivera95@gmail.com,isaac99.bf@gmail.com>
- * 
+ *
  */
 
-const { Schema, model } = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const DiseaseSchema = Schema({
-    name: String,
+const DiseaseSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: [true, 'Es necesario el nombre de la enfermedad'],
+    },
+
     specialist: [String],
-    suggestedmd: [{}],
-    recipe: {
-        type: Schema.Types.ObjectId,
-        ref: 'Recipe'
-    }
-});
+    suggestedMedical: [{}],
+    recipeId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Recipe',
+    },
+  },
+  { timestamps: true }
+);
 
-module.exports = model('Disease', DiseaseSchema);
+export default model('Disease', DiseaseSchema);

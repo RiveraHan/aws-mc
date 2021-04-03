@@ -1,11 +1,11 @@
 {
-    "name": "backend-MC",
+    "name": "medical-control-backend",
     "version": "1.0.0",
     "description": "Backend del proyecto Medical Control en Hackathon",
     "main": "index.js",
     "scripts": {
-        "build": "babel src --out-dir dist", 
-        "dev": "nodemon src/index.js --exec babel-node", 
+        "build": "babel src --out-dir dist",
+        "dev": "nodemon src/index.js --exec babel-node",
         "start": "node dist/index.js"
     },
     "author": "Hanzell Rivera",
