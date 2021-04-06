@@ -10,7 +10,7 @@ const app = express();
 app.set('port', process.env.PORT || 4000);
 
 // load routes
-// import usuario from './api/routes/usuario.routes';
+import usuario from './api/routes/userMedical.routes';
 
 // middlewares
 app.use(cors());
@@ -19,7 +19,7 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 
 // Route
-// app.use('/api'require('./routes/usuario.routes'));
+app.use('/api', usuario);
 // app.use(require('./routes/login.routes'));
 // app.use(require('./routes/rop.routes'));
 

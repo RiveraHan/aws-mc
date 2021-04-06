@@ -31,9 +31,9 @@ const PersonSchema = new Schema(
       type: String,
       unique: true,
       trim: true,
-      max: [15, 'No puede ser más de 15'],
-      min: [15, 'No puede ser menos de 15'],
-      required: false,
+      max: [14, 'No puede ser más de 14'],
+      min: [14, 'No puede ser menos de 14'],
+      required: true,
     },
     photo: {
       type: String,
