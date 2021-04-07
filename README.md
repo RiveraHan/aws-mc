@@ -28,3 +28,6 @@ TWILIO_ACCOUNT_SID
 TWILIO_AUTH_TOKEN
 CLIENT_ID
 ```
+
+*See more about its use*.
+**[Documentation](https://documenter.getpostman.com/view/10801320/TzCS4km5)**

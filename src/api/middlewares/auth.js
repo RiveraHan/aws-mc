@@ -13,7 +13,7 @@ export default VerificacionToken = async (
     return res.status(401).json({ msg: 'No hay token, permiso no válido.' });
 
   try {
-    const { MedicalId, personId } = jwt.verify(token, process.env.SEED);
+    const { patientId, medicalId, personId } = jwt.verify(token, process.env.SEED);
 
     // read the user that corresponds to the personId
     const user = await Person.findById(personId);
@@ -32,7 +32,8 @@ export default VerificacionToken = async (
     }
 
     const decoded = {
-      MedicalId,
+      patientId,
+      medicalId,
       user,
     };
 
