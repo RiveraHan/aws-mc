@@ -8,6 +8,11 @@
 import { Schema, model } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 
+const validRoles = {
+  values: ['PATIENT_ROLE', 'MEDICAL_ROLE'],
+  message: '{VALUE} no es un rol válido'
+};
+
 const PersonSchema = new Schema(
   {
     name: {
@@ -74,6 +79,11 @@ const PersonSchema = new Schema(
       type: String,
       min: 8,
       required: [true, 'La contraseña es obligatoria'],
+    },
+    role: { 
+      type: String,
+      enum: validRoles, 
+      required: true
     }
   },
   {

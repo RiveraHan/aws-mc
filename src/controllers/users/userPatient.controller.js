@@ -58,6 +58,7 @@ exports.signup = async (req = request, res = response) => {
 
     const jump = await bcrypt.genSalt(10);
     person.pass = await bcrypt.hash(pass, jump);
+    person.role = 'PATIENT_ROLE'; //add role
 
       resultPer = await person.save();
       if (resultPer) {
