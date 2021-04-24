@@ -5,7 +5,7 @@
  *
  */
 
-import { Schema, model } from 'mongoose';
+import { Schema, model } from "mongoose";
 
 const MedicalDateSchema = new Schema(
   {
@@ -14,18 +14,18 @@ const MedicalDateSchema = new Schema(
     commission: Number,
     medicalId: {
       type: Schema.Types.ObjectId,
-      ref: 'Medical',
+      ref: "Medical",
     },
     patientId: {
       type: Schema.Types.ObjectId,
-      ref: 'Patient',
+      ref: "Patient",
     },
     prediagnosis: {
       type: Schema.Types.ObjectId,
-      ref: 'ChatBotResults',
+      ref: "ChatBotResults",
     },
   },
   { timestamps: true }
 );
 
-export default model('MedicalDate', MedicalDateSchema);
+export default model("MedicalDate", MedicalDateSchema);

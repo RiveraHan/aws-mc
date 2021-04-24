@@ -5,7 +5,7 @@
  * 
  */
 
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 /**
@@ -13,15 +13,15 @@ const Schema = mongoose.Schema;
  * @class 
  */
 const MunicipiosSchema = Schema({
-    nombre: {
-        type: String,
-        required: true,
-    },
-    departamento_id: { type: Schema.Types.ObjectId, ref: 'Departamentos', required: true }
+  nombre: {
+    type: String,
+    required: true,
+  },
+  departamento_id: { type: Schema.Types.ObjectId, ref: "Departamentos", required: true }
 });
 
 /**
  * Exportamos el esquema para usarlo en la app
  * @module model exportamos su modelo
  */
-module.exports = mongoose.model('Municipios', MunicipiosSchema);
+module.exports = mongoose.model("Municipios", MunicipiosSchema);

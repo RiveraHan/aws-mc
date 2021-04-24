@@ -5,24 +5,24 @@
  *
  */
 
-import { Schema, model } from 'mongoose';
-import uniqueValidator from 'mongoose-unique-validator';
+import { Schema, model } from "mongoose";
+import uniqueValidator from "mongoose-unique-validator";
 
 const validRoles = {
-  values: ['PATIENT_ROLE', 'MEDICAL_ROLE'],
-  message: '{VALUE} no es un rol válido'
+  values: ["PATIENT_ROLE", "MEDICAL_ROLE"],
+  message: "{VALUE} no es un rol válido"
 };
 
 const PersonSchema = new Schema(
   {
     name: {
       type: String,
-      required: [true, 'El nombre es necesario'],
+      required: [true, "El nombre es necesario"],
       trim: true,
     },
     surname: {
       type: String,
-      required: [true, 'El apellido es necesario'],
+      required: [true, "El apellido es necesario"],
       trim: true,
     },
     email: {
@@ -36,8 +36,8 @@ const PersonSchema = new Schema(
       type: String,
       unique: true,
       trim: true,
-      max: [14, 'No puede ser más de 14'],
-      min: [14, 'No puede ser menos de 14'],
+      max: [14, "No puede ser más de 14"],
+      min: [14, "No puede ser menos de 14"],
       required: true,
     },
     photo: {
@@ -56,7 +56,7 @@ const PersonSchema = new Schema(
 
     phone: {
       type: Number,
-      min: [8, 'El número debe ser mayor a siete dígitos'],
+      min: [8, "El número debe ser mayor a siete dígitos"],
       required: false,
     },
     address: {
@@ -73,12 +73,12 @@ const PersonSchema = new Schema(
       trim: true,
       min: 6,
       unique: true,
-      required: [true, 'El nombre-usuario es necesario'],
+      required: [true, "El nombre-usuario es necesario"],
     },
     pass: {
       type: String,
       min: 8,
-      required: [true, 'La contraseña es obligatoria'],
+      required: [true, "La contraseña es obligatoria"],
     },
     role: { 
       type: String,
@@ -91,6 +91,6 @@ const PersonSchema = new Schema(
   }
 );
 
-PersonSchema.plugin(uniqueValidator, { message: '{PATH} dede ser único' });
+PersonSchema.plugin(uniqueValidator, { message: "{PATH} dede ser único" });
 
-export default model('Person', PersonSchema);
+export default model("Person", PersonSchema);

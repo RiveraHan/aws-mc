@@ -5,7 +5,7 @@
  *
  */
 
-import { Schema, model } from 'mongoose';
+import { Schema, model } from "mongoose";
 
 const MinsaCodes = new Schema(
   {
@@ -18,4 +18,4 @@ const MinsaCodes = new Schema(
   { timestamps: true }
 );
 
-export default model('MinsaCodes', MinsaCodes);
+export default model("MinsaCodes", MinsaCodes);

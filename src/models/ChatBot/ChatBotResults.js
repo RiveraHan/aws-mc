@@ -5,7 +5,7 @@
  *
  */
 
-import { Schema, model } from 'mongoose';
+import { Schema, model } from "mongoose";
 
 const ChatBotResultSchema = new Schema(
   {
@@ -13,7 +13,7 @@ const ChatBotResultSchema = new Schema(
 
     diseaseId: {
       type: Schema.Types.ObjectId,
-      ref: 'Disease',
+      ref: "Disease",
     },
   },
   {
@@ -21,4 +21,4 @@ const ChatBotResultSchema = new Schema(
   }
 );
 
-export default model('ChatBotResults', ChatBotResultSchema);
+export default model("ChatBotResults", ChatBotResultSchema);

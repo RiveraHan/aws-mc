@@ -5,9 +5,9 @@
  * 
  */
 
-require('dotenv').config();
+require("dotenv").config();
 const { TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN} = process.env;
-const cliente = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
+const cliente = require("twilio")(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
 /**
  * Esta funcion recibe dos parámetros para poder enviar un SMS
@@ -17,19 +17,19 @@ const cliente = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
 async function enviarMensaje(to, body) {
 
-    try {
+  try {
 
-        const mensaje = await cliente.messages.create({
-            to: to,
-            from: '+18288271692',
-            body: body
-        });
+    const mensaje = await cliente.messages.create({
+      to: to,
+      from: "+18288271692",
+      body: body
+    });
 
-        return mensaje.sid;
+    return mensaje.sid;
 
-    } catch (err) {
-        return err;
-    }
+  } catch (err) {
+    return err;
+  }
 }
 
 module.exports = enviarMensaje;

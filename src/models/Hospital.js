@@ -5,7 +5,7 @@
  * 
  */
 
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 /**
@@ -13,20 +13,20 @@ const Schema = mongoose.Schema;
  * @class 
  */
 const HospitalSchema = Schema({
-    nombre: {
-        type: String,
-        required: true
-    },
-    municipio_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'Municipio',
-        required: true
-    },
-    nombre_sylas_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'Silais',
-        required: true
-    }
+  nombre: {
+    type: String,
+    required: true
+  },
+  municipio_id: {
+    type: Schema.Types.ObjectId,
+    ref: "Municipio",
+    required: true
+  },
+  nombre_sylas_id: {
+    type: Schema.Types.ObjectId,
+    ref: "Silais",
+    required: true
+  }
 });
 
 /**
@@ -34,4 +34,4 @@ const HospitalSchema = Schema({
  * @module model exportamos su modelo
  */
 
-module.exports = mongoose.model('Hospital', HospitalSchema);
+module.exports = mongoose.model("Hospital", HospitalSchema);

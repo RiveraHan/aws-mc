@@ -1,16 +1,16 @@
-import { request, response } from 'express';
-import Person from '../../models/Users/Person';
-import jwt from 'jsonwebtoken';
+import { request, response } from "express";
+import Person from "../../models/Users/Person";
+import jwt from "jsonwebtoken";
 
 export default VerificacionToken = async (
   req = request,
   res = response,
   next
 ) => {
-  const token = req.header('x-auth-token');
+  const token = req.header("x-auth-token");
 
   if (!token)
-    return res.status(401).json({ msg: 'No hay token, permiso no válido.' });
+    return res.status(401).json({ msg: "No hay token, permiso no válido." });
 
   try {
     const { patientId, medicalId, personId } = jwt.verify(token, process.env.SEED);
@@ -21,14 +21,14 @@ export default VerificacionToken = async (
     if (!user) {
       return res
         .status(401)
-        .json({ msg: 'Token no válido - usuario no existe DB' });
+        .json({ msg: "Token no válido - usuario no existe DB" });
     }
 
     // Check if the personId is true
     if (!user.state) {
       return res
         .status(401)
-        .json({ msg: 'Token no válido - usuario con estado: false' });
+        .json({ msg: "Token no válido - usuario con estado: false" });
     }
 
     const decoded = {
@@ -41,6 +41,6 @@ export default VerificacionToken = async (
     next();
   } catch (error) {
     console.error(error);
-    res.status(401).json({ msg: 'Token no válido' });
+    res.status(401).json({ msg: "Token no válido" });
   }
 };

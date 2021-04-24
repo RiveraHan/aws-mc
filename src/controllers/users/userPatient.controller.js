@@ -5,12 +5,12 @@
  *
  */
 
-import Person from '../../models/Users/Person';
-import Patient from '../../models/Users/Patient/Patient';
-import { validationResult } from 'express-validator';
-import { request, response } from 'express';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import Person from "../../models/Users/Person";
+import Patient from "../../models/Users/Patient/Patient";
+import { validationResult } from "express-validator";
+import { request, response } from "express";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 exports.signup = async (req = request, res = response) => {
   let resultPer, resultPat;
@@ -41,37 +41,37 @@ exports.signup = async (req = request, res = response) => {
     if (userDB)
       return res
         .status(400)
-        .json({ msg: 'El usuario ya existe, prueba con uno diferente.' });
+        .json({ msg: "El usuario ya existe, prueba con uno diferente." });
 
-        const person = new Person({
-          name,
-          surname,
-          dni,
-          phone,
-          gender,
-          email,
-          born,
-          address,
-          userName,
-          pass
-        });
+    const person = new Person({
+      name,
+      surname,
+      dni,
+      phone,
+      gender,
+      email,
+      born,
+      address,
+      userName,
+      pass
+    });
 
     const jump = await bcrypt.genSalt(10);
     person.pass = await bcrypt.hash(pass, jump);
-    person.role = 'PATIENT_ROLE'; //add role
+    person.role = "PATIENT_ROLE"; //add role
 
-      resultPer = await person.save();
-      if (resultPer) {
-        const personId = resultPer._id;
+    resultPer = await person.save();
+    if (resultPer) {
+      const personId = resultPer._id;
 
-        const patient = new Patient({
-          weight,
-          blood,
-          personId
-        });
+      const patient = new Patient({
+        weight,
+        blood,
+        personId
+      });
 
-        resultPat = await patient.save();
-      }
+      resultPat = await patient.save();
+    }
     
 
     const payload = {
@@ -92,7 +92,7 @@ exports.signup = async (req = request, res = response) => {
         return res.status(201).send({
           ok: true,
           token,
-          msg: 'Registro exitoso.',
+          msg: "Registro exitoso.",
         });
       }
     );

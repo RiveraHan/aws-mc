@@ -5,7 +5,7 @@
  * 
  */
 
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 /**
@@ -13,54 +13,54 @@ const Schema = mongoose.Schema;
  * @class 
  */
 const OxigenoterapiaSchema = Schema({
-    ventilacion: {
-        type: Number,
-        default: 0,
-        required: false,
-    },
-    cpap: {
+  ventilacion: {
+    type: Number,
+    default: 0,
+    required: false,
+  },
+  cpap: {
+    type: Number,
+    default: 0,
+    required: false
+  },
+  bigotera: {
+    type: Number,
+    default: 0,
+    required: false
+  },
+  camara_cefalica: {
+    type: Number,
+    default: 0,
+    required: false
+  },
+  total: {
+    type: Number,
+    default: 0,
+    required: false
+  },
+  saturacion_o2: {
+    any: [{
+      porcentaje: {
         type: Number,
         default: 0,
         required: false
-    },
-    bigotera: {
+      },
+      numero_dia: {
         type: Number,
         default: 0,
         required: false
-    },
-    camara_cefalica: {
-        type: Number,
-        default: 0,
-        required: false
-    },
-    total: {
-        type: Number,
-        default: 0,
-        required: false
-    },
-    saturacion_o2: {
-        any: [{
-            porcentaje: {
-                type: Number,
-                default: 0,
-                required: false
-            },
-            numero_dia: {
-                type: Number,
-                default: 0,
-                required: false
-            }
-        }]
-    },
-    datos_bebe_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'Datos_bebe',
-        required: true
-    }
+      }
+    }]
+  },
+  datos_bebe_id: {
+    type: Schema.Types.ObjectId,
+    ref: "Datos_bebe",
+    required: true
+  }
 });
 
 /**
  * Exportamos el esquema para usarlo en la app
  * @module model exportamos su modelo
  */
-module.exports = mongoose.model('Oxigenoterapia', OxigenoterapiaSchema);
+module.exports = mongoose.model("Oxigenoterapia", OxigenoterapiaSchema);
