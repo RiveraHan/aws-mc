@@ -7,14 +7,13 @@
 
 import Person from '../../models/Users/Person';
 import Medical from '../../models/Users/Medical/Medical';
-import Credentials from '../../models/Users/Credentials';
 import { validationResult } from 'express-validator';
 import { request, response } from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 exports.signup = async (req = request, res = response) => {
-  let resultCred, resultPer, resultMe, credencialsId;
+  let resultPer, resultMe;
 
   const errors = validationResult(req);
   if (!errors.isEmpty())
@@ -37,49 +36,41 @@ exports.signup = async (req = request, res = response) => {
   } = req.body;
 
   try {
-    const userDB = await Credentials.findOne({ userName });
+    const userDB = await Person.findOne({ userName });
 
     if (userDB)
       return res
         .status(400)
         .json({ msg: 'El usuario ya existe, prueba con uno diferente.' });
 
-    const credencials = new Credentials({ userName, pass });
+    const person = new Person({
+      name,
+      surname,
+      dni,
+      phone,
+      gender,
+      email,
+      born,
+      address,
+      userName,
+      pass,
+    });
 
     const jump = await bcrypt.genSalt(10);
-    credencials.pass = await bcrypt.hash(pass, jump);
+    person.pass = await bcrypt.hash(pass, jump);
 
-    resultCred = await credencials.save();
-    delete resultCred.pass;
+    resultPer = await person.save();
+    if (resultPer) {
+      const personId = resultPer._id;
 
-    if (resultCred) {
-      credencialsId = resultCred._id;
-
-      const person = new Person({
-        name,
-        surname,
-        dni,
-        phone,
-        gender,
-        email,
-        born,
-        address,
-        credencialsId,
+      const medical = new Medical({
+        speciality,
+        minsaSupport,
+        timetable,
+        personId,
       });
 
-      resultPer = await person.save();
-      if (resultPer) {
-        const personId = resultPer._id;
-
-        const medical = new Medical({
-          speciality,
-          minsaSupport,
-          timetable,
-          personId,
-        });
-
-        resultMe = await medical.save();
-      }
+      resultMe = await medical.save();
     }
 
     const payload = {
@@ -105,7 +96,6 @@ exports.signup = async (req = request, res = response) => {
       }
     );
   } catch (error) {
-    await Credentials.findByIdAndDelete(credencialsId);
     res.status(500).send({ ok: false, msg: error.message });
   }
 };

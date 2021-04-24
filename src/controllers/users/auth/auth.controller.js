@@ -1,54 +1,47 @@
-const Credenciales = require('../../db/models/Usuarios/Credenciales');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+import Credentials from '../../../models/Users/Credentials';
+import { request, response } from 'express';
+import { validationResult } from 'express-validator'
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
-const controller = {
+exports.login = async(req = request, res = response) => {
 
-    login: async(req, res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) return res.status(400).json({errors: errors.array()});
 
-        try {
-            const body = req.body;
+    try {
+        const { userName, pass } = req.body;
 
-            if (!body.nombre_usuario || !body.pass) {
-                return res.status(400).send({
-                    ok: false,
-                    message: 'Asegurese de enviar todos los datos solicitados'
-                });
-            }
 
-            const resp = await Credenciales.findOne({ nombre_usuario: body.nombre_usuario });
-            if (!resp) {
-                return res.status(404).send({
-                    ok: false,
-                    message: 'Usuario no existe'
-                })
-            }
-            if (!bcrypt.compareSync(body.pass, resp.pass)) {
-                return res.status(401).send({
-                    ok: false,
-                    err: {
-                        message: 'Usuario o contrasena no son conrrectos'
-                    }
-                });
-
-            }
-            const token = jwt.sign({
-                usuario: resp
-            }, process.env.SEED, { expiresIn: process.env.EXPIRATION_TOKEN });
-
-            return res.status(200).send({
-                ok: true,
-                usuario: resp,
-                token,
-                message: 'Login éxitoso'
+        const resp = await Credentials.findOne({ userName });
+        if (!resp) {
+            return res.status(404).send({
+                ok: false,
+                msg: 'Usuario o contraseña no existen'
+            })
+        }
+        if (!bcrypt.compareSync(pass, resp.pass)) {
+            return res.status(401).send({
+                ok: false,
+                err: {
+                    msg: 'Usuario o contraseña no son conrrectos'
+                }
             });
 
-        } catch (err) {
-            res.status(500).send({ message: err.message });
         }
+        const token = jwt.sign({
+            usuario: resp
+        }, process.env.SEED, { expiresIn: process.env.EXPIRATION_TOKEN });
 
+        return res.status(200).send({
+            ok: true,
+            usuario: resp,
+            token,
+            message: 'Login éxitoso'
+        });
+
+    } catch (err) {
+        res.status(500).send({ message: err.message });
     }
 
 }
-
-module.exports = controller;

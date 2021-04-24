@@ -63,11 +63,18 @@ const PersonSchema = new Schema(
       type: String,
       required: false,
     },
-    credencialsId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Credentials',
-      required: true,
+    userName: {
+      type: String,
+      trim: true,
+      min: 6,
+      unique: true,
+      required: [true, 'El nombre-usuario es necesario'],
     },
+    pass: {
+      type: String,
+      min: 8,
+      required: [true, 'La contraseña es obligatoria'],
+    }
   },
   {
     timestamps: true,
