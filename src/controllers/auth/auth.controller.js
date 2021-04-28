@@ -1,8 +1,8 @@
-import Person from "../../models/Users/Person";
-import { request, userDBonse } from "express";
-import { validationResult } from "express-validator";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import Person from '../../models/Users/Person';
+import { request, userDBonse } from 'express';
+import { validationResult } from 'express-validator';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 exports.auth = async(req = request, res = userDBonse) => {
 
@@ -16,14 +16,14 @@ exports.auth = async(req = request, res = userDBonse) => {
     if (!userDB) {
       return res.status(404).send({
         ok: false,
-        msg: "Usuario o contraseña no existen"
+        msg: 'Usuario o contraseña no existen'
       });
     }
     if (!bcrypt.compareSync(pass, userDB.pass)) {
       return res.status(401).send({
         ok: false,
         err: {
-          msg: "Usuario o contraseña no son conrrectos"
+          msg: 'Usuario o contraseña no son conrrectos'
         }
       });
 
@@ -42,7 +42,7 @@ exports.auth = async(req = request, res = userDBonse) => {
       return res.status(200).send({
         ok: true,
         token,
-        msg: "Login exitoso.",
+        msg: 'Login exitoso.',
       });
     }
     );

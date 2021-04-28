@@ -5,8 +5,8 @@
  * 
  */
 
-const mongoose = require("mongoose");
-const uniqueValidator = require("mongoose-unique-validator");
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
 /**
@@ -44,7 +44,7 @@ const Datos_bebeSchema = Schema({
   sexo: {
     type: String,
     required: true,
-    enum: ["Masculino", "Femenino", "masculino", "femenino"]
+    enum: ['Masculino', 'Femenino', 'masculino', 'femenino']
   },
   raza_blanca: {
     type: Boolean,
@@ -74,15 +74,15 @@ const Datos_bebeSchema = Schema({
   },
   datos_maternos_id: {
     type: Schema.Types.ObjectId,
-    ref: "Datos_Maternos",
+    ref: 'Datos_Maternos',
     required: true
   }
 });
 
-Datos_bebeSchema.plugin(uniqueValidator, { message: "{PATH}, debe ser único" });
+Datos_bebeSchema.plugin(uniqueValidator, { message: '{PATH}, debe ser único' });
 
 /**
  * Exportamos el esquema para usarlo en la app
  * @module model exportamos su modelo
  */
-module.exports = mongoose.model("Datos_bebe", Datos_bebeSchema);
+module.exports = mongoose.model('Datos_bebe', Datos_bebeSchema);

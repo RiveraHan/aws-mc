@@ -5,7 +5,7 @@
  * 
  */
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 /**
@@ -19,12 +19,12 @@ const HospitalSchema = Schema({
   },
   municipio_id: {
     type: Schema.Types.ObjectId,
-    ref: "Municipio",
+    ref: 'Municipio',
     required: true
   },
   nombre_sylas_id: {
     type: Schema.Types.ObjectId,
-    ref: "Silais",
+    ref: 'Silais',
     required: true
   }
 });
@@ -34,4 +34,4 @@ const HospitalSchema = Schema({
  * @module model exportamos su modelo
  */
 
-module.exports = mongoose.model("Hospital", HospitalSchema);
+module.exports = mongoose.model('Hospital', HospitalSchema);

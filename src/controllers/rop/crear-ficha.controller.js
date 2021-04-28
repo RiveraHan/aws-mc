@@ -1,15 +1,15 @@
-const Persona = require("../../db/models/Persona");
-const Contacto = require("../../db/models/Usuarios/Contacto");
-const Municipios = require("../../db/models/Municipios");
-const Datos_Materno = require("../../db/models/Usuarios/ROP/Datos_Maternos");
-const Datos_bebe = require("../../db/models/Usuarios/ROP/Datos_bebe");
-const Tipo_Paciente = require("../../db/models/Usuarios/Tipo_Paciente");
-const Comorbilidades_Rop = require("../../db/models/Fichas/Ficha-Rop/Comorbilidades_Rop");
-const Tratamientos_Recibidos = require("../../db/models/Fichas/Ficha-Rop/Tratamientos_Recibidos");
-const Otros_Factores = require("../../db/models/Fichas/Ficha-Rop/Otros_Factores");
-const Oxigenoterapia = require("../../db/models/Fichas/Ficha-Rop/Oxigenoterapia");
+const Persona = require('../../db/models/Persona');
+const Contacto = require('../../db/models/Usuarios/Contacto');
+const Municipios = require('../../db/models/Municipios');
+const Datos_Materno = require('../../db/models/Usuarios/ROP/Datos_Maternos');
+const Datos_bebe = require('../../db/models/Usuarios/ROP/Datos_bebe');
+const Tipo_Paciente = require('../../db/models/Usuarios/Tipo_Paciente');
+const Comorbilidades_Rop = require('../../db/models/Fichas/Ficha-Rop/Comorbilidades_Rop');
+const Tratamientos_Recibidos = require('../../db/models/Fichas/Ficha-Rop/Tratamientos_Recibidos');
+const Otros_Factores = require('../../db/models/Fichas/Ficha-Rop/Otros_Factores');
+const Oxigenoterapia = require('../../db/models/Fichas/Ficha-Rop/Oxigenoterapia');
 
-const enviarMensaje = require("../../twilio/enviar-mensaje");
+const enviarMensaje = require('../../twilio/enviar-mensaje');
 
 const controlador = {
 
@@ -19,7 +19,7 @@ const controlador = {
     if (!body.nombre || !body.telefono) {
       res.status(400).send({
         ok: false,
-        message: "Asegurese de enviar todos los datos"
+        message: 'Asegurese de enviar todos los datos'
       });
       return;
     }
@@ -48,7 +48,7 @@ const controlador = {
     if (!body.factores_riesgos || !body.antecedentes_rop || !body.secuelas_antecedentes || !body.corticoides_antenatales) {
       res.status(400).send({
         ok: false,
-        message: "Asegurese de enviar todos los datos maternos"
+        message: 'Asegurese de enviar todos los datos maternos'
       });
       return;
     }
@@ -65,7 +65,7 @@ const controlador = {
     if (!body.numero_expediente || !body.nombre || !body.peso_nacimiento || !body.edad_gestacional || !body.sexo) {
       res.status(400).send({
         ok: false,
-        message: "Asegurese de enviar todos los datos del bebe"
+        message: 'Asegurese de enviar todos los datos del bebe'
       });
       return;
     }
@@ -84,7 +84,7 @@ const controlador = {
     if (!body.profilaxis) {
       res.status(400).send({
         ok: false,
-        message: "Asegurese de enviar todos los datos"
+        message: 'Asegurese de enviar todos los datos'
       });
       return;
     }
@@ -97,7 +97,7 @@ const controlador = {
     if (!body.referido || !body.fallecido) {
       res.status(400).send({
         ok: false,
-        message: "Asegurese de enviar todos los datos tipo de paciente"
+        message: 'Asegurese de enviar todos los datos tipo de paciente'
       });
       return;
     }
@@ -110,7 +110,7 @@ const controlador = {
     if (!body.sdr || !body.sepsis) {
       res.status(400).send({
         ok: false,
-        message: "Asegurese de enviar todos los datos comorbilidades"
+        message: 'Asegurese de enviar todos los datos comorbilidades'
       });
       return;
     }
@@ -123,7 +123,7 @@ const controlador = {
     if (!body.surfactantes || !body.fototerapia || !body.transfusiones) {
       res.status(400).send({
         ok: false,
-        message: "Asegurese de enviar todos los datos de /\"otros factores/\""
+        message: 'Asegurese de enviar todos los datos de /"otros factores/"'
       });
       return;
     }
@@ -138,7 +138,7 @@ const controlador = {
     if (!body.ventilacion || !body.cpap || !body.bigotera || !body.camaracefalica || !body.total || !body.saturacion) {
       res.status(400).send({
         ok: false,
-        message: "Asegurese de enviar todos los datos oxigenoterapia"
+        message: 'Asegurese de enviar todos los datos oxigenoterapia'
       });
       return;
     }
@@ -154,12 +154,12 @@ const controlador = {
 
     });
     const bo = `Tiene una Nueva Notificación del Sistema ROP HERAJ Bebe ${body.nombre}, con criterio de control de Recién nacidos prematuros menor o igual de 32 semanas de edad gestacional o menos de 1500 g de peso al nacer`;
-    const to = "+50585038365";
+    const to = '+50585038365';
 
     enviarMensaje(to, bo);
     res.status(201).send({
       ok: true,
-      message: "Ficha creada con éxito, haragan"
+      message: 'Ficha creada con éxito, haragan'
     });
   }
 };

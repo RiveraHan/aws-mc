@@ -5,7 +5,7 @@
  * 
  */
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 /**
@@ -19,7 +19,7 @@ const Tratamientos_RecibidosSchema = Schema({
   },
   datos_bebe_id: {
     type: Schema.Types.ObjectId,
-    ref: "Datos_bebe",
+    ref: 'Datos_bebe',
     required: true
   }
 });
@@ -28,4 +28,4 @@ const Tratamientos_RecibidosSchema = Schema({
  * Exportamos el esquema para usarlo en la app
  * @module model exportamos su modelo
  */
-module.exports = mongoose.model("Tratamientos_Recibidos", Tratamientos_RecibidosSchema);
+module.exports = mongoose.model('Tratamientos_Recibidos', Tratamientos_RecibidosSchema);

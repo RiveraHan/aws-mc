@@ -5,23 +5,23 @@
  *
  */
 
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
 const DiseaseSchema = new Schema(
   {
     name: {
       type: String,
-      required: [true, "Es necesario el nombre de la enfermedad"],
+      required: [true, 'Es necesario el nombre de la enfermedad'],
     },
 
     specialist: [String],
     suggestedMedical: [{}],
     recipeId: {
       type: Schema.Types.ObjectId,
-      ref: "Recipe",
+      ref: 'Recipe',
     },
   },
   { timestamps: true }
 );
 
-export default model("Disease", DiseaseSchema);
+export default model('Disease', DiseaseSchema);

@@ -5,7 +5,7 @@
  *
  */
 
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
 const DiagnosticSchema = new Schema(
   {
@@ -13,15 +13,15 @@ const DiagnosticSchema = new Schema(
     obs: String,
     recipeId: {
       type: Schema.Types.ObjectId,
-      ref: "Recipe",
+      ref: 'Recipe',
     },
     diseaseId: {
       type: Schema.Types.ObjectId,
-      ref: "Disease",
+      ref: 'Disease',
     },
     medicalId: {
       type: Schema.Types.ObjectId,
-      ref: "Medical",
+      ref: 'Medical',
     },
   },
   {
@@ -29,4 +29,4 @@ const DiagnosticSchema = new Schema(
   }
 );
 
-export default model("Diagnostic", DiagnosticSchema);
+export default model('Diagnostic', DiagnosticSchema);

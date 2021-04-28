@@ -1,17 +1,17 @@
-if (process.env.NODE_ENV !== "production") {
-  import("dotenv/config");
+if (process.env.NODE_ENV !== 'production') {
+  import('dotenv/config');
 }
-import app from "./server";
+import app from './server';
 
-import("./db/database");
+import('./db/database');
 // Server is listenning
 const init = async () => {
   try {
-    await app.listen(app.get("port"), () => {
+    await app.listen(app.get('port'), () => {
       console.info(
-        "##############################\n\tOk, Server on port",
-        app.get("port"),
-        ":)\n##############################\n"
+        '##############################\n\tOk, Server on port',
+        app.get('port'),
+        ':)\n##############################\n'
       );
     });
   } catch (error) {

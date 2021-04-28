@@ -5,7 +5,7 @@
  * 
  */
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 /**
@@ -42,7 +42,7 @@ const Tipo_PacienteSchema = Schema({
   },
   datos_bebe_id: {
     type: Schema.Types.ObjectId,
-    ref: "Datos_bebe",
+    ref: 'Datos_bebe',
   }
 });
 
@@ -50,4 +50,4 @@ const Tipo_PacienteSchema = Schema({
  * Exportamos el esquema para usarlo en la app
  * @module model exportamos su modelo
  */
-module.exports = mongoose.model("Tipo_Paciente", Tipo_PacienteSchema);
+module.exports = mongoose.model('Tipo_Paciente', Tipo_PacienteSchema);

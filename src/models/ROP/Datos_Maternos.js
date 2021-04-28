@@ -5,7 +5,7 @@
  * 
  */
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 /**
@@ -58,7 +58,7 @@ const Datos_MaternosSchema = Schema({
   },
   persona_id: {
     type: Schema.Types.ObjectId,
-    ref: "Persona",
+    ref: 'Persona',
     required: true
   }
 });
@@ -67,4 +67,4 @@ const Datos_MaternosSchema = Schema({
  * Exportamos el esquema para usarlo en la app
  * @module model exportamos su modelo
  */
-module.exports = mongoose.model("Datos_Maternos", Datos_MaternosSchema);
+module.exports = mongoose.model('Datos_Maternos', Datos_MaternosSchema);

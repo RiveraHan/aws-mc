@@ -5,7 +5,7 @@
  *
  */
 
-import { connect } from "mongoose";
+import { connect } from 'mongoose';
 const { MONGODB_HOST, MONGODB_DATABASE } = process.env;
 
 process.env.MONGODB_URI =
@@ -19,7 +19,7 @@ connect(process.env.MONGODB_URI, {
 })
   .then((db) =>
     console.info(
-      "**********************************\n\tOk, DB on connect\n**********************************"
+      '**********************************\n\tOk, DB on connect\n**********************************'
     )
   )
   .catch((error) => {

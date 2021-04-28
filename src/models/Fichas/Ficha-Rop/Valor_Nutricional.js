@@ -5,7 +5,7 @@
  * 
  */
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 /**
@@ -35,7 +35,7 @@ const Valor_NutricionalSchema = Schema({
   },
   datos_bebe_id: {
     type: Schema.Types.ObjectId,
-    ref: "Datos_bebe",
+    ref: 'Datos_bebe',
     required: true
   }
 });
@@ -44,4 +44,4 @@ const Valor_NutricionalSchema = Schema({
  * Exportamos el esquema para usarlo en la app
  * @module model exportamos su modelo
  */
-module.exports = mongoose.model("Valor_Nutricional", Valor_NutricionalSchema);
+module.exports = mongoose.model('Valor_Nutricional', Valor_NutricionalSchema);

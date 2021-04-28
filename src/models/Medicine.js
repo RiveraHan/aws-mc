@@ -5,17 +5,17 @@
  *
  */
 
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
 const MedicineSchema = new Schema(
   {
     name: {
       type: String,
-      required: [true, "El nombre de la medicina es necesario"],
+      required: [true, 'El nombre de la medicina es necesario'],
     },
     mg: {
       type: Number,
-      required: [true, "La cantidad en miligramo es necesaria"],
+      required: [true, 'La cantidad en miligramo es necesaria'],
     },
     times: {
       type: Number,
@@ -34,4 +34,4 @@ const MedicineSchema = new Schema(
   }
 );
 
-export default model("Medicine", MedicineSchema);
+export default model('Medicine', MedicineSchema);

@@ -5,7 +5,7 @@
  * 
  */
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 /**
@@ -14,8 +14,8 @@ const Schema = mongoose.Schema;
  */
 
 const Departamentos = {
-  values: ["Chinandega", "León", "Managua", "Carazo", "Masaya", "Granada", "Rivas", "Nueva Segovia", "Madriz", "Estelí", "Jinotega", "Matagalpa", "Boaco", "Chontales", "Río San Juan"],
-  message: "{VALUE} no es un departamento válido"
+  values: ['Chinandega', 'León', 'Managua', 'Carazo', 'Masaya', 'Granada', 'Rivas', 'Nueva Segovia', 'Madriz', 'Estelí', 'Jinotega', 'Matagalpa', 'Boaco', 'Chontales', 'Río San Juan'],
+  message: '{VALUE} no es un departamento válido'
 };
 
 /**
@@ -36,4 +36,4 @@ const DepartamentosSchema = Schema({
  * Exportamos el esquema para usarlo en la app
  * @module model exportamos su modelo
  */
-module.exports = mongoose.model("Departamentos", DepartamentosSchema);
+module.exports = mongoose.model('Departamentos', DepartamentosSchema);

@@ -5,12 +5,12 @@
  *
  */
 
-import Person from "../../models/Users/Person";
-import Medical from "../../models/Users/Medical/Medical";
-import { validationResult } from "express-validator";
-import { request, response } from "express";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import Person from '../../models/Users/Person';
+import Medical from '../../models/Users/Medical/Medical';
+import { validationResult } from 'express-validator';
+import { request, response } from 'express';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 exports.signup = async (req = request, res = response) => {
   let resultPer, resultMe;
@@ -41,8 +41,7 @@ exports.signup = async (req = request, res = response) => {
     if (userDB)
       return res
         .status(400)
-        .json({ msg: "El usuario ya existe, prueba con uno diferente." });
-
+        .json({ msg: 'El usuario ya existe, prueba con uno diferente.' });
     const person = new Person({
       name,
       surname,
@@ -58,7 +57,7 @@ exports.signup = async (req = request, res = response) => {
 
     const jump = await bcrypt.genSalt(10);
     person.pass = await bcrypt.hash(pass, jump);
-    person.role = "MEDICAL_ROLE"; //add role
+    person.role = 'MEDICAL_ROLE'; //add role
 
     resultPer = await person.save();
     if (resultPer) {
@@ -86,13 +85,12 @@ exports.signup = async (req = request, res = response) => {
       {
         expiresIn: process.env.EXPIRATION_TOKEN,
       },
-      (error, token) => {
+      (error) => {
         if (error) throw error;
 
         return res.status(201).send({
           ok: true,
-          token,
-          msg: "Registro exitoso.",
+          msg: 'Registro exitoso.',
         });
       }
     );

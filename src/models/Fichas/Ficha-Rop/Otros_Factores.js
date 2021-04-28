@@ -5,7 +5,7 @@
  * 
  */
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 /**
@@ -45,7 +45,7 @@ const Otros_factoresSchema = Schema({
 
   tratamientos_recibidos_id: {
     type: Schema.Types.ObjectId,
-    ref: "Tratamientos_Recibidos",
+    ref: 'Tratamientos_Recibidos',
     required: true
   }
 });
@@ -54,4 +54,4 @@ const Otros_factoresSchema = Schema({
  * Exportamos el esquema para usarlo en la app
  * @module model exportamos su modelo
  */
-module.exports = mongoose.model("Otros_factores", Otros_factoresSchema);
+module.exports = mongoose.model('Otros_factores', Otros_factoresSchema);

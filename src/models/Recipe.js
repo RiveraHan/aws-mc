@@ -5,15 +5,15 @@
  *
  */
 
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
 const RecipeSchema = new Schema(
   {
-    treatment: [{ type: Schema.Types.ObjectId, ref: "Medicine" }],
+    treatment: [{ type: Schema.Types.ObjectId, ref: 'Medicine' }],
 
     medicalId: {
       type: Schema.Types.ObjectId,
-      ref: "Medical",
+      ref: 'Medical',
       required: true,
     },
   },
@@ -22,4 +22,4 @@ const RecipeSchema = new Schema(
   }
 );
 
-export default model("Recipe", RecipeSchema);
+export default model('Recipe', RecipeSchema);

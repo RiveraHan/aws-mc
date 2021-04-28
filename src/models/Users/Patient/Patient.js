@@ -5,7 +5,7 @@
  *
  */
 
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
 const PatientSchema = new Schema(
   {
@@ -16,13 +16,13 @@ const PatientSchema = new Schema(
     clinicalStory: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Diagnostic",
+        ref: 'Diagnostic',
       },
     ],
 
     personId: {
       type: Schema.Types.ObjectId,
-      ref: "Person",
+      ref: 'Person',
     },
   },
   {
@@ -30,4 +30,4 @@ const PatientSchema = new Schema(
   }
 );
 
-export default model("Patient", PatientSchema);
+export default model('Patient', PatientSchema);
