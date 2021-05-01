@@ -23,6 +23,10 @@ const MedicalSchema = new Schema(
       ref: 'Person',
       required: true,
     },
+    patientId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Patient',
+    },
     minsaSupport: {
       type: Schema.Types.ObjectId,
       ref: 'MinsaCodes',

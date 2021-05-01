@@ -1,4 +1,6 @@
 import Person from '../../models/Users/Person';
+import Medical from '../../models/Users/Medical/Medical';
+import Patient from '../../models/Users/Patient/Patient';
 import { request, userDBonse } from 'express';
 import { validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
@@ -13,6 +15,17 @@ exports.auth = async(req = request, res = userDBonse) => {
     const { userName, pass } = req.body;
 
     const userDB = await Person.findOne({ userName });
+
+    var id = userDB._id;
+    if(userDB.role === 'MEDICAL_ROLE') {
+      var medical = await Medical.findOne({personId: id});
+    } 
+    /* if(userDB.role === 'PATIENT_ROLE'){
+
+      console.log(id);
+      var patient = await Patient.findOne({personId: id});
+    } */
+    
     if (!userDB) {
       return res.status(404).send({
         ok: false,
@@ -30,7 +43,9 @@ exports.auth = async(req = request, res = userDBonse) => {
     }
 
     const payload = {
-      personId: userDB._id
+      personId: id,
+      medicalId: medical._id,
+      // patientId: patient._id
     };
 
     jwt.sign({
@@ -47,7 +62,7 @@ exports.auth = async(req = request, res = userDBonse) => {
     }
     );
   } catch (err) {
-    res.status(500).send({ message: err.message });
+    res.status(500).send({ msg: err.message });
   }
 
 };

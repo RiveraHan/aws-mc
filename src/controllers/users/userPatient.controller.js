@@ -7,6 +7,7 @@
 
 import Person from '../../models/Users/Person';
 import Patient from '../../models/Users/Patient/Patient';
+import Medical from '../../models/Users/Medical/Medical';
 import { validationResult } from 'express-validator';
 import { request, response } from 'express';
 import jwt from 'jsonwebtoken';
@@ -33,6 +34,7 @@ exports.signup = async (req = request, res = response) => {
     clinicalStory,
     userName,
     pass,
+    medicalId
   } = req.body;
 
   try {
@@ -53,7 +55,8 @@ exports.signup = async (req = request, res = response) => {
       born,
       address,
       userName,
-      pass
+      pass,
+      medicalId
     });
 
     const jump = await bcrypt.genSalt(10);
@@ -63,11 +66,12 @@ exports.signup = async (req = request, res = response) => {
     resultPer = await person.save();
     if (resultPer) {
       const personId = resultPer._id;
-
+      console.log(medicalId);
       const patient = new Patient({
         weight,
         blood,
-        personId
+        personId,
+        medicalId
       });
 
       resultPat = await patient.save();
@@ -98,4 +102,28 @@ exports.signup = async (req = request, res = response) => {
   } catch (error) {
     res.status(500).send({ ok: false, msg: error.message });
   }
+};
+
+
+exports.patients = async(req = request, res = response) => {
+  
+  const { medicalId } = req.user;
+
+  try {
+    const medicalDB = await Medical.findOne({_id: medicalId});
+    if(!medicalDB) return res.status(401).send({ok: false, msg: 'Usted no es medico de este paciente'});
+
+    const patientsDB = await Patient.find({medicalId});
+    
+    if(!patientsDB)  return res.status(404).send('No hay pacientes');
+
+    return res.status(200).json({
+      ok: true,
+      patientsDB
+    });
+
+  } catch (error) {
+    res.status(500).send({ok: false, msg: error.message});
+  }
+
 };

@@ -2,7 +2,7 @@ import { request, response } from 'express';
 import Person from '../../models/Users/Person';
 import jwt from 'jsonwebtoken';
 
-export default VerificacionToken = async (
+const isAuth = async (
   req = request,
   res = response,
   next
@@ -13,7 +13,7 @@ export default VerificacionToken = async (
     return res.status(401).json({ msg: 'No hay token, permiso no válido.' });
 
   try {
-    const { patientId, medicalId, personId } = jwt.verify(token, process.env.SEED);
+    const { payload: { personId, patientId, medicalId } } = await jwt.verify(token, process.env.SEED);
 
     // read the user that corresponds to the personId
     const user = await Person.findById(personId);
@@ -44,3 +44,5 @@ export default VerificacionToken = async (
     res.status(401).json({ msg: 'Token no válido' });
   }
 };
+
+export default isAuth;

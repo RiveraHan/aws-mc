@@ -1,8 +1,9 @@
 import { Router } from 'express';
 const router = Router();
 import { check } from 'express-validator';
+import isAuth  from '../middlewares/auth';
 
-import { signup } from '../../controllers/users/userPatient.controller';
+import { signup, patients } from '../../controllers/users/userPatient.controller';
 
 router.post(
   '/user/signup-patient',
@@ -19,5 +20,7 @@ router.post(
   ],
   signup
 );
+
+router.get('/medical/patients', isAuth, patients);
 
 export default router;

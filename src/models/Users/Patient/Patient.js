@@ -24,6 +24,10 @@ const PatientSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Person',
     },
+    medicalId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Medical',
+    },
   },
   {
     timestamps: true,
