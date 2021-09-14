@@ -44,7 +44,7 @@ const PersonSchema = new Schema(
       type: String,
       required: false,
     },
-    state: {
+    status: {
       type: Boolean,
       default: true,
     },
@@ -90,6 +90,14 @@ const PersonSchema = new Schema(
     timestamps: true,
   }
 );
+
+PersonSchema.methods.toJSON = function ()  {
+  let person = this;
+  let personObject = person.toObject();
+  delete personObject.pass;
+
+  return personObject;
+};
 
 PersonSchema.plugin(uniqueValidator, { message: '{PATH} dede ser único' });
 

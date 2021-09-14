@@ -1,5 +1,5 @@
 import { request, response } from 'express';
-import Person from '../../models/Users/Person';
+import Person from '../models/Users/Person';
 import jwt from 'jsonwebtoken';
 
 const isAuth = async (
@@ -10,7 +10,7 @@ const isAuth = async (
   const token = req.header('x-auth-token');
 
   if (!token)
-    return res.status(401).json({ msg: 'No hay token, permiso no válido.' });
+    return res.status(401).json({ msg: 'No token, invalid permission.' });
 
   try {
     const { payload: { personId, patientId, medicalId } } = await jwt.verify(token, process.env.SEED);
@@ -21,14 +21,14 @@ const isAuth = async (
     if (!user) {
       return res
         .status(401)
-        .json({ msg: 'Token no válido - usuario no existe DB' });
+        .json({ msg: 'Invalid token - user does not exist' });
     }
 
     // Check if the personId is true
     if (!user.state) {
       return res
         .status(401)
-        .json({ msg: 'Token no válido - usuario con estado: false' });
+        .json({ msg: 'Invalid token - user with status: false' });
     }
 
     const decoded = {
@@ -41,7 +41,7 @@ const isAuth = async (
     next();
   } catch (error) {
     console.error(error);
-    res.status(401).json({ msg: 'Token no válido' });
+    res.status(401).json({ msg: 'Invalid token' });
   }
 };
 

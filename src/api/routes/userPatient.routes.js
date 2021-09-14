@@ -1,7 +1,7 @@
 import { Router } from 'express';
 const router = Router();
 import { check } from 'express-validator';
-import isAuth  from '../middlewares/auth';
+import isAuth  from '../../middlewares/auth';
 
 import { signup, patients } from '../../controllers/users/userPatient.controller';
 

@@ -12,13 +12,14 @@ import { validationResult } from 'express-validator';
 import { request, response } from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import httpStatus from 'http-status';
 
 exports.signup = async (req = request, res = response) => {
   let resultPer, resultPat;
 
   const errors = validationResult(req);
   if (!errors.isEmpty())
-    return res.status(400).json({ errors: errors.array() });
+    return res.status(httpStatus.BAD_REQUEST).json({ errors: errors.array() });
 
   const {
     name,
@@ -31,7 +32,7 @@ exports.signup = async (req = request, res = response) => {
     address,
     weight,
     blood,
-    clinicalStory,
+    // clinicalStory,
     userName,
     pass,
     medicalId
@@ -42,8 +43,8 @@ exports.signup = async (req = request, res = response) => {
 
     if (userDB)
       return res
-        .status(400)
-        .json({ msg: 'El usuario ya existe, prueba con uno diferente.' });
+        .status(httpStatus.BAD_REQUEST)
+        .json({ msg: 'The user already exists, try a different one.' });
 
     const person = new Person({
       name,
@@ -66,7 +67,6 @@ exports.signup = async (req = request, res = response) => {
     resultPer = await person.save();
     if (resultPer) {
       const personId = resultPer._id;
-      console.log(medicalId);
       const patient = new Patient({
         weight,
         blood,
@@ -90,17 +90,19 @@ exports.signup = async (req = request, res = response) => {
       {
         expiresIn: process.env.EXPIRATION_TOKEN,
       },
-      (error) => {
+      (error, token) => {
         if (error) throw error;
-
-        return res.status(201).send({
+        return res.status(httpStatus.CREATED).send({
           ok: true,
-          msg: 'Registro exitoso.',
+          status: 201,
+          Person: resultPer,
+          token,
+          msg: 'Successful registration.',
         });
       }
     );
   } catch (error) {
-    res.status(500).send({ ok: false, msg: error.message });
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ ok: false, msg: error.message });
   }
 };
 
@@ -111,19 +113,20 @@ exports.patients = async(req = request, res = response) => {
 
   try {
     const medicalDB = await Medical.findOne({_id: medicalId});
-    if(!medicalDB) return res.status(401).send({ok: false, msg: 'Usted no es medico de este paciente'});
+    if(!medicalDB) return res.status(httpStatus.UNAUTHORIZED).send({ok: false, msg: 'You are not this patients doctor.'});
 
     const patientsDB = await Patient.find({medicalId});
     
-    if(!patientsDB)  return res.status(404).send('No hay pacientes');
+    if(!patientsDB)  return res.status(httpStatus.BAD_REQUEST).send('No patients.');
 
-    return res.status(200).json({
+    return res.status(httpStatus.OK).json({
       ok: true,
+      status: 200,
       patientsDB
     });
 
   } catch (error) {
-    res.status(500).send({ok: false, msg: error.message});
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ok: false, msg: error.message});
   }
 
 };

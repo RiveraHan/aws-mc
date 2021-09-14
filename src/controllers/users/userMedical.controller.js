@@ -11,13 +11,14 @@ import { validationResult } from 'express-validator';
 import { request, response } from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import httpStatus from 'http-status';
 
 exports.signup = async (req = request, res = response) => {
   let resultPer, resultMe;
 
   const errors = validationResult(req);
   if (!errors.isEmpty())
-    return res.status(400).json({ errors: errors.array() });
+    return res.status(httpStatus.BAD_REQUEST).json({ errors: errors.array() });
 
   const {
     name,
@@ -40,8 +41,8 @@ exports.signup = async (req = request, res = response) => {
 
     if (userDB)
       return res
-        .status(400)
-        .json({ msg: 'El usuario ya existe, prueba con uno diferente.' });
+        .status(httpStatus.BAD_REQUEST)
+        .json({ msg: 'The user already exists, try a different one.' });
     const person = new Person({
       name,
       surname,
@@ -60,6 +61,7 @@ exports.signup = async (req = request, res = response) => {
     person.role = 'MEDICAL_ROLE'; //add role
 
     resultPer = await person.save();
+    
     if (resultPer) {
       const personId = resultPer._id;
 
@@ -85,16 +87,18 @@ exports.signup = async (req = request, res = response) => {
       {
         expiresIn: process.env.EXPIRATION_TOKEN,
       },
-      (error) => {
+      (error, token) => {
         if (error) throw error;
-
-        return res.status(201).send({
+        return res.status(httpStatus.CREATED).send({
           ok: true,
-          msg: 'Registro exitoso.',
+          status: 201,
+          Person: resultPer,
+          token,
+          msg: 'Successful registration.',
         });
       }
     );
   } catch (error) {
-    res.status(500).send({ ok: false, msg: error.message });
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ ok: false, msg: error.message });
   }
 };
