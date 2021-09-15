@@ -5,9 +5,9 @@
  *
  */
 
-import { Schema, model } from 'mongoose';
+const mongoose = require('mongoose');
 
-const PatientSchema = new Schema(
+const PatientSchema = new mongoose.Schema(
   {
     weight: Number,
 
@@ -15,17 +15,17 @@ const PatientSchema = new Schema(
 
     clinicalStory: [
       {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Diagnostic',
       },
     ],
 
-    personId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Person',
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
     },
     medicalId: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Medical',
     },
   },
@@ -34,4 +34,4 @@ const PatientSchema = new Schema(
   }
 );
 
-export default model('Patient', PatientSchema);
+module.exports = mongoose.model('Patient', PatientSchema);

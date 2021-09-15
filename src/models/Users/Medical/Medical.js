@@ -5,9 +5,9 @@
  *
  */
 
-import { Schema, model } from 'mongoose';
+const mongoose = require('mongoose');
 
-const MedicalSchema = new Schema(
+const MedicalSchema = new mongoose.Schema(
   {
     speciality: [String],
     timetable: {
@@ -18,17 +18,17 @@ const MedicalSchema = new Schema(
       finishH: Date,
       break: Date,
     },
-    personId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Person',
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
     },
     patientId: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Patient',
     },
     minsaSupport: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'MinsaCodes',
       required: false,
     },
@@ -38,4 +38,4 @@ const MedicalSchema = new Schema(
   }
 );
 
-export default model('Medical', MedicalSchema);
+module.exports = mongoose.model('Medical', MedicalSchema);

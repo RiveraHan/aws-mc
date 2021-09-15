@@ -1,48 +1,33 @@
-import { request, response } from 'express';
-import Person from '../models/Users/Person';
-import jwt from 'jsonwebtoken';
+const passport = require('passport');
+const httpStatus = require('http-status');
+const ApiError = require('../utils/ApiError');
+const { roleRights } = require('../config/roles');
 
-const isAuth = async (
-  req = request,
-  res = response,
-  next
-) => {
-  const token = req.header('x-auth-token');
-
-  if (!token)
-    return res.status(401).json({ msg: 'No token, invalid permission.' });
-
-  try {
-    const { payload: { personId, patientId, medicalId } } = await jwt.verify(token, process.env.SEED);
-
-    // read the user that corresponds to the personId
-    const user = await Person.findById(personId);
-
-    if (!user) {
-      return res
-        .status(401)
-        .json({ msg: 'Invalid token - user does not exist' });
-    }
-
-    // Check if the personId is true
-    if (!user.state) {
-      return res
-        .status(401)
-        .json({ msg: 'Invalid token - user with status: false' });
-    }
-
-    const decoded = {
-      patientId,
-      medicalId,
-      user,
-    };
-
-    req.user = decoded;
-    next();
-  } catch (error) {
-    console.error(error);
-    res.status(401).json({ msg: 'Invalid token' });
+const verifyCallback = (req, resolve, reject, requiredRights) => async (err, user, info) => {
+  if (err || info || !user) {
+    return reject(new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate'));
   }
+  req.user = user;
+
+  if (requiredRights.length) {
+    const userRights = roleRights.get(user.role);
+    const hasRequiredRights = requiredRights.every((requiredRight) => userRights.includes(requiredRight));
+    if (!hasRequiredRights && req.params.userId !== user.id) {
+      return reject(new ApiError(httpStatus.FORBIDDEN, 'Forbidden'));
+    }
+  }
+
+  resolve();
 };
 
-export default isAuth;
+const auth =
+  (...requiredRights) =>
+  async (req, res, next) => {
+    return new Promise((resolve, reject) => {
+      passport.authenticate('jwt', { session: false }, verifyCallback(req, resolve, reject, requiredRights))(req, res, next);
+    })
+      .then(() => next())
+      .catch((err) => next(err));
+  };
+
+module.exports = auth;
