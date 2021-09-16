@@ -1,7 +1,7 @@
 const httpStatus = require('http-status');
 const { User } = require('../models');
-const Medical = require('../models/Users/Medical/Medical');
-const Patient = require('../models/Users/Patient/Patient');
+const Medical = require('../api/userMedical/userMedical.model');
+const Patient = require('../api/userPatient/userPatient.model');
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -59,19 +59,6 @@ const createUserMedical = async (userBody) => {
 
     await medical.save();
   }
-
-  // const user = {
-  //   id: resultUser.id
-  // };
-
-  // const token = await tokenService.generateAuthTokens(user);
-  // return res.status(httpStatus.CREATED).send({
-  //   ok: true,
-  //   status: 201,
-  //   User: resultUser,
-  //   token,
-  //   message: 'Successful registration.',
-  // });
 
   return user;
 };
@@ -131,18 +118,6 @@ const createUserPatient = async (userBody) => {
     await patient.save();
   }
 
-  // const user = {
-  //   id: user.id
-  // };
-
-  // const token = await tokenService.generateAuthTokens(user);
-  // return res.status(httpStatus.CREATED).send({
-  //   ok: true,
-  //           status: 201,
-  //   User: resultUser,
-  //   token,
-  //   message: 'Successful registration.',
-  // });
   return user;
 };
 
